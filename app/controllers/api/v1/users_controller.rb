@@ -1,5 +1,7 @@
 class Api::V1::UsersController < ApplicationController
 
+  skip_before_action :authenticate_request, only: %i[login register]
+
   def index
     data = {:personal_info => {:name=>"Zaigham Ali", :number=>"03003720051"}, :billing_info => {:total_bill=>1000, :unpaid_bill=> 1306, :last_updated=> Date.today.to_s}, :remaining_usage => {:consumed => {:data => "19", :credit_limit => "3,000", :calls => "792"}, :total => {:data => "1,000", :credit_limit => "5,000", :calls => "5,000"}}, :units => {:credit_limit => "Rs", :call => "mins", :data => "MB"}}
     render json: data
@@ -14,5 +16,32 @@ class Api::V1::UsersController < ApplicationController
     # render error: {error: "hello"}, status: 400
   end
 
+  # [...]
+  def login
+    authenticate params[:mobile_num], params[:password]
+  end
+
+  def test
+    render json: {
+        message: 'You have passed authentication and authorization test'
+    }
+  end
+  # [...]
+
+  # [...]
+  private
+  def authenticate(mobile_num, password)
+    command = AuthenticateUser.call(mobile_num, password)
+
+    if command.success?
+      render json: {
+          access_token: command.result,
+          message: 'Login Successful'
+      }
+    else
+      render json: { error: command.errors }, status: :unauthorized
+    end
+  end
+  # [...]
 
 end

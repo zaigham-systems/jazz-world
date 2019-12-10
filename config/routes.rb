@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     #  resources :users
       get 'users', to: 'users#index'
       get 'packages', to: 'users#packages'
+      post 'auth/login', to: 'users#login'
+      get 'test', to: 'users#test'
     end
   end
 end
