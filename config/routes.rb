@@ -9,4 +9,5 @@ Rails.application.routes.draw do
       get 'test', to: 'users#test'
     end
   end
+  get 'signup', to: 'login#new'
 end
