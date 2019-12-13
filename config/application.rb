@@ -34,6 +34,17 @@ module JazzWorldApp
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    #Rails-admin Configurtion Start
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Flash
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_jazz_world_app_session"}
+
+    #Rails-admin configuration End
+
+    #JWT Configurtion Start
+
     # [...]
     #cors configuration
     config.middleware.insert_before 0, Rack::Cors do
@@ -48,6 +59,8 @@ module JazzWorldApp
     #autoloads lib folder during development
     config.autoload_paths << Rails.root.join('lib')
     # [...]
+
+    #JWT Configurtion End
 
   end
 end
