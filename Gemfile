@@ -26,6 +26,8 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'simple_command'
 
+gem 'rails_admin', '~> 2.0'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
